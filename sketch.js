@@ -1,35 +1,45 @@
 let posX, posY, diam, rad;
 
-let espe = 34;
-let marge = 20;
-
+let espe;
+let margen;
+let vel;
 let piso;
-
-let velY = 5;
+let acel;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   posX = windowWidth / 2;
-  posY = 100;
+  posY = 0;
   rectMode(CENTER);
-  piso = windowHeight - marge - espe / 2;
-  diam = 50;
+  diam = random(10, 50);
   rad = diam / 2;
+  espe = 50;
+  margen = 40;
+  piso = windowHeight - margen - espe / 2;
+  vel = 0;
+  acel = 0.98;
 }
 
 function draw() {
-  background(0, 255, 150, 50);
+  background(255, 150, 50);
 
-  posY += velY;
-
-  if (posY > piso - rad) {
-    velY *= -1;
-  }
+  actualizar();
 
   noStroke();
   fill("white");
-  circle(posX, posY, diam);
+  circle(posX, posY, 20);
 
   fill("red");
-  rect(windowWidth / 2, windowHeight - marge, windowWidth * 0.8, espe);
+  rect(windowWidth / 2, windowHeight - margen, windowWidth, espe);
+}
+
+function actualizar() {
+  vel += acel;
+  posY += vel;
+
+  if (posY > piso - rad) {
+    print("ya");
+    vel *= -1;
+    posY += vel;
+  }
 }
